@@ -1,0 +1,467 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+:root{
+  --g:#008266;--g2:#00B38B;--g3:#0D4F25;--gold:#CBA339;--glt:#F5ECD7;
+  --p1:#008266;--p2:#2E7BBF;--p3:#C4572A;--p4:#CBA339;
+  --bg:#FAFAF8;--card:#FFFFFF;--bdr:#E8E5DE;--tx:#111;--tx2:#555;--mt:#999;--ft:#C0BDB5;--warm:#F0EDE6;
+  --r:12px;--shadow:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.03);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;direction:rtl;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased}
+.kf{font-family:'Noto Kufi Arabic',sans-serif}
+
+/* ===== LANDING ===== */
+.land{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);position:relative;overflow:hidden}
+.land-canvas{position:absolute;inset:0;pointer-events:none}
+
+.lc{text-align:center;padding:5rem 2rem;max-width:800px;position:relative;z-index:1}
+.lc .badge{display:inline-block;font-size:.62rem;font-weight:600;color:var(--g);background:rgba(0,130,102,.06);border:1px solid rgba(0,130,102,.15);padding:6px 20px;border-radius:20px;margin-bottom:2.5rem;letter-spacing:.5px}
+.lc h1{font-size:clamp(2.8rem,6vw,4rem);font-weight:900;color:var(--tx);line-height:1.1;margin-bottom:1.2rem;letter-spacing:-.8px}
+.lc h1 em{font-style:normal;background:linear-gradient(135deg,var(--g),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lc .lead{font-size:1.05rem;color:var(--tx2);line-height:1.9;max-width:520px;margin:0 auto 3rem;font-weight:400}
+.lctas{display:flex;gap:12px;justify-content:center;margin-bottom:3.5rem}
+.lbtn{display:inline-block;padding:14px 36px;background:var(--g);color:#fff;font-weight:700;font-size:.88rem;border:none;border-radius:8px;cursor:pointer;transition:all .25s;font-family:inherit}
+.lbtn:hover{background:var(--g3);box-shadow:0 8px 32px rgba(0,130,102,.2);transform:translateY(-1px)}
+.lbtn-ghost{display:inline-block;padding:14px 36px;background:transparent;color:var(--tx2);font-weight:600;font-size:.88rem;border:1px solid var(--bdr);border-radius:8px;cursor:pointer;transition:all .25s;font-family:inherit}
+.lbtn-ghost:hover{color:var(--tx);border-color:var(--g);background:rgba(0,130,102,.03)}
+.lstats{display:flex;justify-content:center;gap:32px;max-width:650px;margin:0 auto;flex-wrap:wrap}
+.ls-item{text-align:center;position:relative}
+.ls-item .sv{font-size:2.8rem;font-weight:900;line-height:1;letter-spacing:-1px}
+.ls-item .sl{font-size:.6rem;color:var(--mt);margin-top:4px;font-weight:500;letter-spacing:.3px}
+.ls-item .sl-line{display:block;width:20px;height:2px;margin:8px auto 0;border-radius:1px}
+
+/* Print button */
+.print-btn{font-family:inherit;padding:6px 12px;border-radius:5px;border:1px solid var(--bdr);background:var(--card);color:var(--mt);font-size:.6rem;cursor:pointer;font-weight:500;transition:all .15s;display:flex;align-items:center;gap:4px;flex-shrink:0;margin-right:8px;height:32px}
+.print-btn:hover{border-color:var(--g);color:var(--g)}
+.print-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== PRINT STYLES ===== */
+@media print{
+*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+html,body{background:#fff!important;font-size:10pt}
+.topnav,.print-btn,.exp-btns,.exp-btn,.save-row,.s-grip,.s-del,.lbtn,.lbtn-ghost,.lctas,.badge,.land-canvas,.dc-arr{display:none!important}
+.land{min-height:auto!important;padding:30px 0!important;page-break-after:always;background:#fff!important}
+.lc{padding:20px!important}
+.lc h1{font-size:28pt!important;color:#008266!important}
+.lc h1 em{-webkit-text-fill-color:#008266!important;color:#008266!important}
+.lc .lead{color:#555!important;font-size:11pt!important}
+.lstats{gap:40px!important}
+.ls-item .sv{font-size:24pt!important}
+.shell{padding:10px 20px!important;max-width:100%!important}
+.sec-title{font-size:16pt!important}
+.sec-eyebrow{font-size:8pt!important}
+.sec-lead{font-size:9pt!important}
+.dc,.di,.sr,.psel,.pcards,.stats-row,.purpose,.pj-bar,.sec,.ix-lanes,.ix-card{break-inside:avoid}
+.dc{border:1px solid #ddd!important;margin-bottom:4px!important;border-radius:6px!important}
+.dc.open,.dc{border-color:#ddd!important;box-shadow:none!important}
+.dc.open .dc-body{display:block!important}
+.dc-h{padding:8px 14px!important}
+.dc-cat{font-size:6pt!important;padding:2px 4px!important;min-height:auto!important}
+.dc-num{font-size:12pt!important}
+.dc-m .dc-t{font-size:9pt!important}
+.dc-m .dc-d{font-size:7pt!important}
+.sr{padding:4px 2px!important;font-size:8pt!important}
+.sr .s-time{font-size:8pt!important}
+.sr .s-name{font-size:8pt!important}
+.sr .s-dur{font-size:8pt!important}
+.s-badge{font-size:6pt!important;padding:2px 4px!important}
+.di{padding:8px 10px!important;margin-bottom:4px!important}
+.di-code{font-size:9pt!important}
+.di-name{font-size:8pt!important}
+.di-prole,.di-p4>div{font-size:7.5pt!important;padding:4px 6px!important}
+.mx{border:1px solid #ccc!important;border-radius:6px!important}
+.mx-head{position:static!important;box-shadow:none!important}
+.mx-row{break-inside:avoid}
+.mx-det{break-inside:avoid}
+.mx-det-card{font-size:8pt!important;padding:10px!important}
+.mx-cell{font-size:8pt!important}
+.mx-init{font-size:8pt!important}
+.mx-init .mi-code{font-size:9pt!important}
+.pill{border:1px solid #ddd!important;font-size:6pt!important}
+.ps{border:1px solid #eee!important}
+.ps .ps-n{font-size:10pt!important}
+.pcard-ov{border:1px solid #eee!important}
+.stat-box{border:1px solid #eee!important}
+.pj-bar{border:1px solid #eee!important;border-right:4px solid!important}
+.sess-hd{display:none!important}
+@page{margin:10mm 8mm;size:A4}
+.print-title{display:block!important;text-align:center;font-size:16pt;font-weight:800;color:#008266;margin-bottom:4px;font-family:'Noto Kufi Arabic',sans-serif}
+.print-sub{display:block!important;text-align:center;font-size:9pt;color:#999;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #eee}
+}
+.print-title,.print-sub{display:none}
+
+/* ===== NAV ===== */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--card);height:50px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--bdr)}
+.topnav-inner{display:flex;width:100%;max-width:900px;height:100%;padding:0 24px;align-items:center}
+.tn{border:none;background:transparent;font-family:'Noto Kufi Arabic',sans-serif;font-size:.78rem;font-weight:500;color:var(--mt);cursor:pointer;transition:all .2s;height:100%;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 20px;position:relative}
+.tn::after{content:'';position:absolute;bottom:0;left:12px;right:12px;height:2px;background:transparent;transition:background .2s;border-radius:1px}
+.tn.a{color:var(--g);font-weight:700}
+.tn.a::after{background:var(--g)}
+.tn:hover:not(.a){color:var(--tx)}
+.tn .tn-n{font-size:.52rem;font-weight:600;min-width:16px;text-align:center;padding:1px 5px;border-radius:10px;background:var(--warm);color:var(--mt)}
+.tn.a .tn-n{background:rgba(0,130,102,.08);color:var(--g)}
+
+/* ===== SHELL ===== */
+.shell{max-width:900px;margin:0 auto;padding:68px 24px 60px}
+
+/* ===== SECTION HEADERS ===== */
+.sec{margin-bottom:2.5rem}
+.sec-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--tx);line-height:1.2;letter-spacing:-.3px}
+.sec-lead{font-size:.85rem;color:var(--tx2);margin-top:8px;line-height:1.7;max-width:600px}
+
+/* ===== STATS ROW ===== */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:2rem}
+.stat-box{background:var(--card);padding:24px 16px;text-align:center}
+.stat-n{font-size:2rem;font-weight:800;line-height:1}
+.stat-l{font-size:.6rem;color:var(--mt);margin-top:5px;font-weight:500}
+
+/* ===== PURPOSE BLOCK ===== */
+.purpose{padding:28px 32px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:2.5rem;font-size:.85rem;color:var(--tx2);line-height:1.85;text-align:right}
+.purpose strong{color:var(--tx);font-weight:700}
+.purpose b{color:var(--g)}
+
+/* ===== PERSONA CARDS (OVERVIEW) ===== */
+.pcards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden}
+.pcard-ov{background:var(--card);padding:24px 18px;text-align:right;position:relative;transition:background .2s}
+.pcard-ov:hover{background:#FDFCFA}
+.pcard-ov .po-num{font-size:.58rem;font-weight:700;letter-spacing:.1em;margin-bottom:10px;opacity:.35}
+.pcard-ov .po-n{font-size:1.15rem;font-weight:900;line-height:1.2;margin-bottom:3px}
+.pcard-ov .po-r{font-size:.72rem;font-weight:600;margin-bottom:10px}
+.pcard-ov .po-desc{font-size:.65rem;color:var(--tx2);line-height:1.6;margin-bottom:10px}
+.pcard-ov .po-count{font-size:.55rem;font-weight:600;padding:3px 10px;border-radius:4px;display:inline-block}
+.po-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.po-tag{font-size:.52rem;padding:3px 7px;border-radius:3px;font-weight:600}
+
+/* ===== PERSONA SELECTOR (JOURNEY) ===== */
+.psel{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:1.5rem}
+.ps{background:var(--card);padding:0;text-align:right;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.ps:hover{background:#FDFCFA}
+.ps.a .ps-color{height:4px}
+.ps.dim{opacity:.15}
+.ps-color{height:3px;width:100%;transition:height .3s}
+.ps-inner{padding:16px 18px}
+.ps .ps-num{font-size:.55rem;font-weight:700;letter-spacing:.1em;opacity:.35;margin-bottom:6px}
+.ps .ps-n{font-size:1.2rem;font-weight:900}
+.ps .ps-r{font-size:.65rem;color:var(--tx2);margin-top:2px}
+.ps .ps-d{font-size:.58rem;color:var(--mt);margin-top:4px;line-height:1.4}
+
+.pj-bar{padding:20px 24px;border-radius:var(--r);margin-bottom:1.5rem;text-align:right;border-right:4px solid;border:1px solid var(--bdr);background:var(--card)}
+.pj-bar .pjb-n{font-size:1.25rem;font-weight:900}
+.pj-bar .pjb-m{font-size:.72rem;color:var(--tx2);margin-top:3px}
+.pj-empty{text-align:center;padding:60px 24px;color:var(--mt);font-size:.88rem}
+
+/* ===== DAY CARDS ===== */
+.dc{border:1px solid var(--bdr);border-radius:var(--r);background:var(--card);margin-bottom:8px;overflow:hidden;transition:all .2s}
+.dc.open{border-color:var(--g);box-shadow:var(--shadow)}
+.dc-h{display:flex;align-items:center;padding:14px 20px;gap:14px;cursor:pointer;transition:background .15s}
+.dc-h:hover{background:#FDFDFC}
+.dc-num{font-size:1.4rem;font-weight:900;min-width:36px;text-align:center;line-height:1}
+.dc-num small{display:block;font-size:.42rem;font-weight:600;color:var(--ft);letter-spacing:.5px}
+.dc-cat{writing-mode:vertical-lr;text-orientation:mixed;font-size:.52rem;font-weight:700;padding:4px 6px;border-radius:4px;letter-spacing:.5px;white-space:nowrap;min-height:40px;display:flex;align-items:center;justify-content:center;transform:rotate(180deg)}
+.dc-m{flex:1;text-align:right}
+.dc-m .dc-t{font-weight:700;font-size:.88rem}
+.dc-m .dc-d{font-size:.65rem;color:var(--mt);margin-top:2px}
+.dc-tags{display:flex;gap:4px;flex-wrap:wrap}
+.dc-tags .pill{cursor:pointer;transition:opacity .15s}
+.dc-tags .pill:hover{opacity:.6}
+.dc-arr{font-size:.9rem;color:var(--ft);transition:transform .3s}
+.dc.open .dc-arr{transform:rotate(90deg);color:var(--g)}
+.dc-body{display:none;padding:4px 20px 20px}
+.dc.open .dc-body{display:block;animation:fi .2s}
+
+/* Initiative in day — reframed as case studies */
+.di-section{margin-bottom:14px;padding:14px 16px;background:rgba(203,163,57,.03);border:1px solid rgba(203,163,57,.1);border-radius:10px}
+.di-section-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.di-section-hd .dish-title{font-size:.72rem;font-weight:700;color:var(--gold)}
+.di-section-hd .dish-hint{font-size:.55rem;color:var(--mt);max-width:340px;text-align:left;line-height:1.4}
+.di{padding:12px 14px;border-radius:8px;margin-bottom:6px;background:var(--card);border:1px solid var(--bdr);text-align:right}
+.di-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.di-code{font-weight:800;color:var(--g);font-size:.85rem;cursor:pointer;transition:opacity .15s}
+.di-code:hover{opacity:.65;text-decoration:underline}
+.di-name{font-size:.75rem;color:var(--tx2);line-height:1.45}
+.di-prole{margin-top:8px;padding:8px 12px;border-radius:8px;font-size:.72rem;line-height:1.5;border-right:3px solid;text-align:right}
+.di-p4{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.di-p4>div{padding:8px 12px;border-radius:8px;font-size:.65rem;line-height:1.4;text-align:right;border-right:3px solid}
+.di-p4>div strong{display:block;margin-bottom:2px;font-size:.7rem}
+
+/* Session rows */
+.sess-hd{font-size:.62rem;color:var(--ft);margin:14px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--bdr)}
+.sr{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid var(--warm);border-radius:4px;transition:background .1s}
+.sr:last-child{border:none}
+.sr:hover{background:#FDFCFA}
+.sr .s-grip{min-width:14px;color:var(--ft);font-size:.55rem;cursor:grab;text-align:center}
+.sr .s-time{min-width:46px;font-size:.68rem;color:var(--gold);font-weight:700;text-align:center}
+.s-badge{min-width:72px;text-align:center;font-size:.54rem;padding:4px 8px;border-radius:4px;font-weight:700;cursor:pointer;user-select:none;transition:opacity .15s}
+.s-badge:hover{opacity:.65}
+.sb-c{background:var(--glt);color:var(--gold)}
+.sb-a{background:#FCE8E0;color:var(--p3)}
+.sb-m{background:#E0EFF8;color:var(--p2)}
+.sr .s-dur{min-width:36px;font-size:.68rem;font-weight:700}
+.sr .s-name{flex:1;font-size:.76rem;line-height:1.45;cursor:text;text-align:right}
+.sr .s-name:hover{background:rgba(0,130,102,.02);border-radius:3px}
+.sr .s-name input{width:100%;font-size:.76rem;font-family:inherit;border:1.5px solid var(--g);border-radius:5px;padding:5px 10px;outline:none;direction:rtl;background:#fff}
+.sr .s-del{min-width:20px;font-size:.6rem;color:var(--ft);cursor:pointer;text-align:center;border-radius:4px;padding:2px;transition:all .15s}
+.sr .s-del:hover{color:var(--p3);background:rgba(196,87,42,.06)}
+.sr.dragging{opacity:.3}
+.sr.drag-over{box-shadow:inset 0 2px 0 var(--g)}
+
+/* ===== INITIATIVES MATRIX ===== */
+.mx{border:1px solid var(--bdr);border-radius:var(--r);background:var(--bdr);position:relative}
+.mx-head{display:grid;grid-template-columns:200px repeat(4,1fr);gap:1px;position:sticky;top:50px;z-index:10;background:var(--bdr);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.mx-corner{background:var(--g3);padding:16px 18px;color:rgba(255,255,255,.7);font-size:.65rem;display:flex;align-items:flex-end;border-radius:var(--r) 0 0 0}
+.mx-ph{background:var(--card);padding:16px 12px;text-align:center}
+.mx-ph .mph-bar{height:3px;border-radius:2px;margin:0 auto 10px;width:32px}
+.mx-ph .mph-n{font-size:.88rem;font-weight:800;margin-bottom:2px}
+.mx-ph .mph-r{font-size:.58rem;color:var(--mt)}
+.mx-row{display:grid;grid-template-columns:200px repeat(4,1fr);gap:1px;cursor:pointer;transition:all .15s}
+.mx-row:hover .mx-init,.mx-row:hover .mx-cell{background:#FDFCFA}
+.mx-init{background:var(--card);padding:14px 16px;text-align:right;display:flex;flex-direction:column;justify-content:center;transition:all .2s}
+.mx-init .mi-code{font-size:.78rem;font-weight:800;color:var(--g)}
+.mx-init .mi-name{font-size:.62rem;color:var(--tx2);line-height:1.4;margin-top:2px}
+.mx-init .mi-days{display:flex;gap:3px;margin-top:6px;flex-wrap:wrap}
+.mx-init .mi-day{font-size:.48rem;padding:2px 5px;border-radius:3px;color:#fff;font-weight:600}
+.mx-cell{background:var(--card);padding:12px 10px;text-align:center;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.mx-cell.off{opacity:.2}
+.mx-cell .mc-dot{font-size:.85rem;font-weight:800;line-height:1}
+.mx-row.sel .mx-init{background:rgba(0,130,102,.04);border-right:3px solid var(--g)}
+.mx-row.sel .mx-cell:not(.off){background:rgba(0,130,102,.02)}
+/* Detail panel */
+.mx-det{background:var(--card);padding:24px 28px;border-top:2px solid var(--g)}
+.mx-det-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.mx-det-card{padding:18px;border-radius:10px;text-align:right;border-right:4px solid}
+.mx-det-card .mdc-n{font-size:.88rem;font-weight:800;margin-bottom:2px}
+.mx-det-card .mdc-r{font-size:.58rem;color:var(--mt);margin-bottom:10px}
+.mx-det-card .mdc-t{font-size:.75rem;color:var(--tx);line-height:1.65}
+.mx-det-days{display:flex;gap:8px;flex-wrap:wrap}
+.mx-det-day{padding:8px 14px;border-radius:8px;color:#fff;font-size:.65rem;text-align:right}
+.mx-det-day strong{display:block;font-size:.72rem;font-weight:700}
+.mx-det-day span{font-size:.58rem;opacity:.75}
+
+.pill{font-size:.58rem;padding:3px 8px;border-radius:4px;font-weight:600;display:inline-block}
+
+/* ===== PATH VISUAL ===== */
+.pv{margin-top:2.5rem}
+.pv-grid{display:grid;grid-template-columns:40px repeat(14,1fr);gap:0;border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;background:var(--bdr)}
+.pv-label{background:var(--card);padding:8px 4px;font-size:.5rem;font-weight:700;color:var(--mt);display:flex;align-items:center;justify-content:center;text-align:center;border-bottom:1px solid var(--bdr);writing-mode:vertical-lr;transform:rotate(180deg)}
+.pv-label:last-of-type{border-bottom:none}
+.pv-hd{background:var(--card);padding:8px 2px;text-align:center;font-weight:800;font-size:.7rem;border-bottom:1px solid var(--bdr)}
+.pv-cat{background:var(--card);padding:6px 2px;text-align:center;border-bottom:1px solid var(--bdr)}
+.pv-cat-bar{height:6px;border-radius:3px;margin:0 auto;width:80%}
+.pv-cat-lbl{font-size:.4rem;color:var(--mt);margin-top:3px;line-height:1.1}
+.pv-shared{background:var(--card);padding:6px 2px;text-align:center;border-bottom:1px solid var(--bdr)}
+.pv-shared-bar{height:16px;border-radius:4px;margin:0 auto;width:85%;display:flex;align-items:center;justify-content:center;font-size:.42rem;font-weight:700;color:#fff}
+.pv-pcell{background:var(--card);padding:4px 2px;text-align:center;display:flex;align-items:center;justify-content:center;gap:1px;flex-wrap:wrap;min-height:28px}
+.pv-dot{width:10px;height:10px;border-radius:3px;display:inline-block;font-size:.35rem;font-weight:800;color:#fff;line-height:10px;text-align:center}
+.pv-dot.off{opacity:.08}
+.pv-corner{background:var(--g3);padding:8px 4px;display:flex;align-items:center;justify-content:center}
+.pv-corner span{font-size:.45rem;color:rgba(255,255,255,.6);font-weight:600}
+.pv-legend{display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.pv-legend-item{display:flex;align-items:center;gap:4px;font-size:.55rem;color:var(--mt)}
+.pv-legend-dot{width:10px;height:10px;border-radius:3px}
+.exp-btns{display:flex;gap:6px}
+.exp-btn{font-family:inherit;padding:5px 14px;border-radius:5px;border:1px solid var(--bdr);background:var(--card);color:var(--mt);font-size:.6rem;cursor:pointer;font-weight:500;transition:all .15s}
+.exp-btn:hover{border-color:var(--g);color:var(--g)}
+.save-row{display:flex;gap:8px;align-items:center}
+.save-row button{font-family:inherit;padding:6px 16px;border-radius:6px;font-size:.62rem;cursor:pointer;font-weight:600}
+.sv-btn{border:none;background:var(--g);color:#fff}
+.rs-btn{border:1px solid var(--bdr);background:var(--card);color:var(--mt)}
+.sv-msg{font-size:.62rem;color:var(--g);font-weight:600}
+
+@keyframes fi{from{opacity:0}to{opacity:1}}
+</style>
+<div id="app"></div>
+<script>
+const G="#008266",G2="#00B38B",G3="#0D4F25",GOLD="#CBA339",P1="#008266",P2="#2E7BBF",P3="#C4572A",P4="#CBA339";
+const P=[{id:"accel",ar:"المسرّع",c:P1,n:25,role:"يقود ويُوجّه",desc:"رتبة عليا · خبرة +١٠ سنوات · إنجليزية B2+",tags:["قيادة","توجيه استراتيجي","اعتماد"]},{id:"build",ar:"البنّاء",c:P2,n:30,role:"يبني الأدوات",desc:"رتبة متوسطة · خلفية تقنية · ٦-١٠ سنوات",tags:["تصميم أدوات","نمذجة","بناء أنظمة"]},{id:"field",ar:"الميداني",c:P3,n:28,role:"يربط بالواقع",desc:"قطاعات عملياتية · خبرة ميدانية · ٣-٨ سنوات",tags:["تطبيق ميداني","محاكاة","اختبار"]},{id:"spec",ar:"المتخصص",c:P4,n:25,role:"يتوسّع عبر القطاعات",desc:"وظائف مساندة · خلفية إدارية وقانونية",tags:["سياسات","حوكمة","ضمان جودة"]}];
+const IN=[
+{c:"BG-01",n:"بناء القدرات الاستراتيجية ووضع استراتيجية خمسية",s:"حرس الحدود",days:[3,9,10],covers:["accel","field"],p:{accel:"قيادة تصميم الرؤية الخمسية وتوجيه الفريق الاستشاري",field:"ربط الاستراتيجية بالعمليات الحدودية اليومية"}},
+{c:"CA-01",n:"تحديث تصميم نطاق العمل والاختصاصات",s:"الأحوال المدنية",days:[4,11],covers:["build","spec"],p:{build:"تصميم هيكل الاختصاصات الجديد وأدوات التوثيق",spec:"تحليل الأثر القانوني والإداري للتحديثات"}},
+{c:"CD-17",n:"تقييم احتياجات الدفاع المدني للتغطية الجوية",s:"الدفاع المدني",days:[3,6],covers:["build","field"],p:{build:"بناء أدوات جمع وتحليل البيانات الميدانية",field:"تقييم الاحتياجات من الواقع الميداني والعملياتي"}},
+{c:"FSF-03",n:"تفعيل تخصيص الموارد وفقاً لدرجة الخطورة",s:"أمن المنشآت",days:[5,7],covers:["build","spec"],p:{build:"بناء نموذج مالي لتقدير المخاطر وتحليلها كمياً",spec:"ربط التخصيص بمعايير الحوكمة والسياسات الداخلية"}},
+{c:"HQ-69/103",n:"تصميم النموذج التشغيلي لشؤون العمليات",s:"ديوان الوزارة",days:[2,4,12],covers:["accel","build"],p:{accel:"قيادة تصميم النموذج التشغيلي واعتماد القرارات",build:"بناء خرائط العمليات الرقمية ونماذج العمل"}},
+{c:"MHD-01",n:"تطوير إطار عمل مؤسسي للمجاهدين",s:"المجاهدين",days:[4,11],covers:["field","spec"],p:{field:"ضمان التوافق مع الواقع العملياتي للمجاهدين",spec:"صياغة السياسات الداخلية والإطار التنظيمي"}},
+{c:"PA-14",n:"إعداد نظام إدارة الأداء",s:"الجوازات",days:[5,13],covers:["accel","build"],p:{accel:"تصميم لوحة متابعة الأداء للقيادة العليا",build:"بناء مؤشرات الأداء ولوحات البيانات التحليلية"}},
+{c:"PS-02",n:"تطوير قدرات اتخاذ القرار بالاستناد إلى المخاطر",s:"الأمن العام",days:[5,6],covers:["accel","field"],p:{accel:"قيادة نقاش القرار الاستراتيجي تحت الضغط",field:"محاكاة اتخاذ قرار ميداني بالاستناد إلى المخاطر"}},
+{c:"R-2-1",n:"النموذج التشغيلي لوكالة شؤون المناطق",s:"وكالة المناطق",days:[2,12],covers:["field","spec"],p:{field:"إدارة التغيير في البيئة الإقليمية والمحلية",spec:"تحليل النماذج التشغيلية المقارنة والسياسات"}},
+{c:"HQ-86",n:"مكتب إدارة مشاريع فرعي",s:"ديوان الوزارة",days:[3,10],covers:["accel","spec"],p:{accel:"الإشراف على حوكمة المشاريع واعتماد المنهجيات",spec:"إعداد تقارير المتابعة وضمان الجودة"}}
+];
+const DD=[{d:1,t:"الافتتاح الرسمي واللقاءات القيادية",cat:"قيادي",col:GOLD,v:0,h:"4.25",ss:[{id:"1a",t:"09:00",dur:"30د",n:"تسجيل واستقبال",tp:"c"},{id:"1b",t:"09:30",dur:"20د",n:"كلمة افتتاحية من قيادة الوزارة",tp:"c"},{id:"1c",t:"09:50",dur:"60د",n:"جلسة حوارية مع قادة الفكر الاستشاري",tp:"c"},{id:"1d",t:"11:05",dur:"60د",n:"لقاء مفتوح مع القادة واكتشاف القدرات",tp:"c"},{id:"1e",t:"12:05",dur:"30د",n:"استلام الحقائب والمواد التدريبية",tp:"c"},{id:"1f",t:"12:35",dur:"40د",n:"شرح آلية البرنامج وتلخيص وتوجيه",tp:"c"}]},{d:2,t:"أساسيات الاستشارات وإدارة أصحاب المصلحة",cat:"تدريب فني",col:G,v:0,h:"5.5",ss:[{id:"2a",t:"09:15",dur:"75د",n:"مقدمة في الاستشارات الإدارية وأنواعها",tp:"m"},{id:"2b",t:"10:45",dur:"75د",n:"صناعة الاستشارات + بدء دراسة الحالة الموحدة",tp:"a"},{id:"2c",t:"12:15",dur:"75د",n:"إشراك وإدارة أصحاب المصلحة",tp:"a"},{id:"2d",t:"13:30",dur:"45د",n:"عرض المجموعات ومناقشة النتائج",tp:"a"}]},{d:3,t:"الدخول والتعاقد والتشخيص الاستشاري",cat:"تدريب فني",col:G,v:0,h:"5.5",ss:[{id:"3a",t:"09:15",dur:"75د",n:"مرحلة الدخول والتعاقد",tp:"m"},{id:"3b",t:"10:45",dur:"75د",n:"مرحلة التشخيص والتحليل + دراسة حالة",tp:"a"},{id:"3c",t:"12:15",dur:"75د",n:"تحليل البيانات والدراسات المعيارية",tp:"a"},{id:"3d",t:"13:30",dur:"45د",n:"محاكاة اجتماع تعاقد مع المرشدين",tp:"a"}]},{d:4,t:"تصميم الحلول وتنفيذ التغيير وإغلاق المهمة",cat:"تدريب فني",col:G,v:0,h:"5.5",ss:[{id:"4a",t:"09:15",dur:"75د",n:"تصميم الحلول وبناء خطط العمل",tp:"m"},{id:"4b",t:"10:45",dur:"75د",n:"التنفيذ وإدارة التغيير",tp:"m"},{id:"4c",t:"12:15",dur:"75د",n:"إنهاء المهمة والمتابعة + تقارير التسليم",tp:"a"},{id:"4d",t:"13:30",dur:"45د",n:"تحليل حالة شاملة",tp:"a"}]},{d:5,t:"التقييم والتواصل وضمان الجودة وإدارة المخاطر",cat:"تدريب فني",col:G,v:0,h:"5.5",ss:[{id:"5a",t:"09:15",dur:"75د",n:"التقييم وإعداد التقارير وبناء KPIs",tp:"m"},{id:"5b",t:"10:45",dur:"75د",n:"التواصل والثقافة في المهام الاستشارية",tp:"m"},{id:"5c",t:"12:15",dur:"75د",n:"إدارة المخاطر وضمان الجودة",tp:"m"},{id:"5d",t:"13:30",dur:"45د",n:"تمرين جماعي: سجل مخاطر",tp:"a"}]},{d:6,t:"تطبيق عملي — دراسة الحالة الأولى",cat:"تطبيق عملي",col:P3,v:0,h:"7",ss:[{id:"6a",t:"09:00",dur:"30د",n:"توزيع وثيقة دراسة الحالة وتقسيم المجموعات",tp:"a"},{id:"6b",t:"09:30",dur:"75د",n:"مرحلة الدخول والتعاقد",tp:"a"},{id:"6c",t:"11:00",dur:"90د",n:"التشخيص والتحليل",tp:"a"},{id:"6d",t:"13:15",dur:"75د",n:"تصميم الحلول وبناء خطة عمل",tp:"a"},{id:"6e",t:"14:45",dur:"60د",n:"إعداد العروض التقديمية",tp:"a"}]},{d:7,t:"المعايير الدولية ISO 20700",cat:"CMC",col:P2,v:1,h:"4.5",ss:[{id:"7a",t:"09:15",dur:"60د",n:"مقدمة في ISO 20700 ومبادئه",tp:"m"},{id:"7b",t:"10:30",dur:"75د",n:"هيكل المعيار ومراحل الخدمة الاستشارية",tp:"m"},{id:"7c",t:"12:00",dur:"45د",n:"ورشة افتراضية: تقييم مشروع وفق ISO",tp:"a"},{id:"7d",t:"12:45",dur:"30د",n:"مناقشة مفتوحة وتبادل خبرات",tp:"c"}]},{d:8,t:"الأخلاقيات المهنية CMC Code of Ethics",cat:"CMC",col:P2,v:1,h:"4.5",ss:[{id:"8a",t:"09:15",dur:"60د",n:"مبادئ الأخلاقيات المهنية",tp:"m"},{id:"8b",t:"10:30",dur:"60د",n:"تحليل معضلات أخلاقية",tp:"a"},{id:"8c",t:"11:45",dur:"60د",n:"صياغة ميثاق أخلاقي لفريق حكومي",tp:"a"},{id:"8d",t:"12:45",dur:"30د",n:"عرض المخرجات ومناقشة",tp:"c"}]},{d:9,t:"لقاءات قيادية",cat:"قيادي",col:GOLD,v:0,h:"5.75",ss:[{id:"9a",t:"09:30",dur:"90د",n:"جلسة حوارية مع وكلاء الوزارة",tp:"c"},{id:"9b",t:"11:15",dur:"90د",n:"آفاق تطوير العمل الاستشاري الحكومي",tp:"c"},{id:"9c",t:"12:45",dur:"30د",n:"نقاش مفتوح مع القادة",tp:"c"},{id:"9d",t:"13:45",dur:"45د",n:"ورشة عصف ذهني مع المرشدين",tp:"a"}]},{d:10,t:"إدارة المشاريع الاستشارية",cat:"تدريب فني",col:G,v:0,h:"5.5",ss:[{id:"10a",t:"09:15",dur:"75د",n:"تحديد نطاق العمل وبناء WBS",tp:"m"},{id:"10b",t:"10:45",dur:"75د",n:"إعداد وثائق RFP",tp:"a"},{id:"10c",t:"12:15",dur:"75د",n:"تصميم مصفوفة تقييم عروض",tp:"a"},{id:"10d",t:"13:30",dur:"45د",n:"محاكاة لجنة تقييم عروض",tp:"a"}]},{d:11,t:"تطوير وصياغة السياسات العامة",cat:"تدريب فني",col:G,v:0,h:"5.5",ss:[{id:"11a",t:"09:15",dur:"75د",n:"دورة السياسات العامة",tp:"m"},{id:"11b",t:"10:45",dur:"75د",n:"أدوات تحليل السياسات",tp:"a"},{id:"11c",t:"12:15",dur:"75د",n:"صياغة وثيقة سياسات",tp:"a"},{id:"11d",t:"13:30",dur:"45د",n:"تحليل نقدي لسياسة عامة قائمة",tp:"a"}]},{d:12,t:"تطبيق عملي — دراسة الحالة الثانية",cat:"تطبيق عملي",col:P3,v:0,h:"8",ss:[{id:"12a",t:"09:00",dur:"30د",n:"توزيع وثيقة دراسة الحالة",tp:"a"},{id:"12b",t:"09:30",dur:"75د",n:"تحليل الموقف وتحديد المشكلة",tp:"a"},{id:"12c",t:"11:00",dur:"90د",n:"جمع المعلومات وتحليل البدائل",tp:"a"},{id:"12d",t:"13:15",dur:"75د",n:"صياغة التوصيات وبناء خطة العمل",tp:"a"},{id:"12e",t:"14:45",dur:"60د",n:"إعداد العروض التقديمية",tp:"a"},{id:"12f",t:"15:45",dur:"60د",n:"عروض المجموعات وتغذية راجعة",tp:"a"}]},{d:13,t:"الذكاء الاصطناعي في العمل الاستشاري",cat:"تدريب فني",col:"#7B2D8E",v:1,h:"4.75",ss:[{id:"13a",t:"09:15",dur:"75د",n:"أدوات الذكاء الاصطناعي التوليدي",tp:"m"},{id:"13b",t:"10:45",dur:"60د",n:"ورشة: تلخيص وصياغة وتوليد أفكار",tp:"a"},{id:"13c",t:"12:00",dur:"60د",n:"أتمتة المهام الاستشارية",tp:"a"},{id:"13d",t:"13:15",dur:"30د",n:"فرص وتحديات في الاستشارات الحكومية",tp:"c"}]},{d:14,t:"العروض التقديمية الاحترافية — ختام البرنامج",cat:"تدريب فني",col:"#7B2D8E",v:1,h:"5.75",ss:[{id:"14a",t:"09:15",dur:"75د",n:"بناء القصة الاستشارية",tp:"m"},{id:"14b",t:"10:45",dur:"60د",n:"تصميم الشرائح بوضوح",tp:"a"},{id:"14c",t:"12:00",dur:"60د",n:"الإقناع والتأثير ولغة الجسد",tp:"m"},{id:"14d",t:"13:15",dur:"30د",n:"تحضير عروض مصغرة",tp:"a"},{id:"14e",t:"13:45",dur:"45د",n:"عروض مصغرة وتقييم الأقران",tp:"a"},{id:"14f",t:"14:30",dur:"15د",n:"ختام البرنامج وتقييم شامل",tp:"c"}]}];
+
+const tpM={c:{cls:"sb-c",l:"أساسي"},a:{cls:"sb-a",l:"تطبيقي"},m:{cls:"sb-m",l:"CMC"}},tpC=["c","a","m"],SK="moi-v5";
+function pl(t,c){return`<span class="pill" style="background:${c}10;color:${c}">${t}</span>`}
+function ifd(d){return IN.filter(i=>i.days.includes(d))}
+function ifdp(d,pid){return IN.filter(i=>i.days.includes(d)&&i.covers.includes(pid))}
+function cl(o){return JSON.parse(JSON.stringify(o))}
+let S={pg:"l",vw:"ov",od:null,oi:null,sp:null,allOpen:false},D=cl(DD),dirty=false,dDi=null,dSi=null,svM="";
+async function ld(){try{const r=await window.storage.get(SK);if(r?.value){D=JSON.parse(r.value);dirty=true}}catch(e){}R()}
+async function sv(){try{await window.storage.set(SK,JSON.stringify(D));svM="✓ تم الحفظ";R();setTimeout(()=>{svM="";R()},2e3)}catch(e){}}
+async function rs(){D=cl(DD);dirty=false;try{await window.storage.delete(SK)}catch(e){}svM="✓ تمت الاستعادة";R();setTimeout(()=>{svM="";R()},2e3)}
+
+function R(){if(pAnim){cancelAnimationFrame(pAnim);pAnim=null}document.getElementById('app').innerHTML=S.pg==='l'?rL():rS();B();if(S.pg==='l')setTimeout(initParticles,50)}
+
+function rL(){return`<div class="land"><canvas class="land-canvas" id="pCanvas"></canvas><div class="lc"><div class="badge kf">برنامج تطوير وزارة الداخلية · الخطة التنفيذية ٢٠٢٦</div><h1 class="kf">أداة تصميم<br><em>البرنامج التدريبي</em><br>للمهارات الاستشارية</h1><p class="lead">استكشف وعدّل ١٤ يوماً تدريبياً · أعد ترتيب الجلسات · غيّر الأنشطة · وشاهد كيف تتكيّف ١٠ حالات تطبيقية واقعية حسب ٤ شخصيات تدريبية مختلفة</p><div class="lctas"><button class="lbtn kf" id="eB">ابدأ الاستكشاف</button><button class="lbtn-ghost" onclick="document.getElementById('eB').click()">تعرّف على الأداة</button></div><div class="lstats">${[{v:"14",l:"يوم تدريبي",c:G},{v:"70",l:"ساعة تدريبية",c:G2},{v:"10",l:"حالة تطبيقية",c:P2},{v:"80%",l:"تعلّم تجريبي",c:GOLD}].map(s=>`<div class="ls-item"><div class="sv kf" style="color:${s.c}">${s.v}</div><div class="sl">${s.l}</div><div class="sl-line" style="background:${s.c}30"></div></div>`).join('')}</div></div></div>`}
+
+// Particle system
+let pAnim=null;
+function initParticles(){
+const c=document.getElementById('pCanvas');if(!c)return;
+const ctx=c.getContext('2d');
+let w,h,pts=[];
+function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;if(pts.length===0)seed()}
+function seed(){
+pts=[];const n=Math.floor((w*h)/6000);
+for(let i=0;i<n;i++){
+pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,
+c:Math.random()>.7?'rgba(203,163,57,':'rgba(0,130,102,',a:Math.random()*.25+.08})}}
+function draw(){
+ctx.clearRect(0,0,w,h);
+for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){
+const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+if(d<120){const a=((120-d)/120)*.08;ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(0,130,102,${a})`;ctx.lineWidth=.5;ctx.stroke()}}}
+// particles
+for(const p of pts){
+p.x+=p.vx;p.y+=p.vy;
+if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c+p.a+')';ctx.fill()}
+pAnim=requestAnimationFrame(draw)}
+resize();window.addEventListener('resize',resize);draw()}
+
+function svBr(){return(dirty||svM)?`<div class="save-row">${svM?`<span class="sv-msg">${svM}</span>`:''}${dirty?`<button class="sv-btn" id="svB">حفظ</button><button class="rs-btn" id="rsB">استعادة</button>`:''}</div>`:'';}
+
+function rS(){
+const tabs=[{v:"ov",l:"نظرة عامة",n:""},{v:"jn",l:"الأيام",n:"14"},{v:"pj",l:"الشخصيات",n:"4"},{v:"ex",l:"الحالات التطبيقية",n:"10"}];
+const tabNames={ov:"نظرة عامة",pj:"بعيون الشخصيات",jn:"رحلة الـ١٤ يوماً",ex:"الحالات التطبيقية"};
+let h=`<div class="topnav"><div class="topnav-inner">${tabs.map(t=>`<button class="tn ${S.vw===t.v?'a':''}" data-t="${t.v}"><span>${t.l}</span>${t.n?`<span class="tn-n">${t.n}</span>`:''}</button>`).join('')}<button class="print-btn" id="printBtn" title="طباعة"><svg viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button></div></div><div class="shell"><div class="print-title">أداة تصميم البرنامج التدريبي للمهارات الاستشارية</div><div class="print-sub">برنامج تطوير وزارة الداخلية · ${tabNames[S.vw]} · مارس ٢٠٢٦</div>`;
+if(S.vw==='ov')h+=rOV();else if(S.vw==='pj')h+=rPJ();else if(S.vw==='jn')h+=rJN();else h+=rEX();
+h+=`</div>`;return h;
+}
+
+function rOV(){
+let h=`<div class="sec"><div class="sec-eyebrow kf">نظرة عامة</div><div class="sec-title kf">أداة تصميم البرنامج التدريبي للمهارات الاستشارية</div><div class="sec-lead">الخطة التنفيذية · برنامج تطوير وزارة الداخلية · مارس ٢٠٢٦</div></div>`;
+h+=`<div class="stats-row">${[{v:"14",l:"يوم تدريبي",c:G},{v:"70",l:"ساعة تدريبية",c:G2},{v:"10",l:"حالة تطبيقية",c:P2},{v:"4",l:"شخصيات تدريبية",c:P3},{v:"80%",l:"تعلّم تجريبي",c:GOLD}].map(s=>`<div class="stat-box"><div class="stat-n kf" style="color:${s.c}">${s.v}</div><div class="stat-l">${s.l}</div></div>`).join('')}</div>`;
+h+=`<div class="purpose"><strong>ما هذه الأداة؟</strong><br>أداة تفاعلية تُمكّن صانعي القرار من استكشاف وتعديل تصميم البرنامج التدريبي. تربط <b>١٠ مبادرات حقيقية</b> من قطاعات وزارة الداخلية بـ <b>١٤ يوماً تدريبياً</b> وتُكيّف المحتوى حسب <b>٤ شخصيات تدريبية</b> مختلفة.<br><br><strong>كيف تعمل الحالات التطبيقية؟</strong><br>بدلاً من التدريب النظري فقط، يتدرّب المشاركون على <b>مبادرات حقيقية</b> من قطاعاتهم (حرس الحدود، الأحوال المدنية، الدفاع المدني...) كحالات دراسية تطبيقية. كل شخصية تتعامل مع <b>٥ مبادرات</b> بدور مختلف يناسب خبرتها ومستواها.<br><br>يعتمد البرنامج على نموذج <b>٨٠٪ تعلّم تجريبي</b> (محاكاة ودراسات حالة ومشاريع عمل) و<b>٢٠٪ تدريب معرفي</b> وفق إطار CMC الدولي.</div>`;
+h+=`<div class="sec" style="margin-bottom:1rem"><div class="sec-eyebrow kf">الشخصيات التدريبية</div><div class="sec-title kf" style="font-size:1.4rem">أربع شخصيات بأدوار مختلفة في نفس البرنامج</div></div>`;
+h+=`<div class="pcards">${P.map((p,i)=>`<div class="pcard-ov"><div class="po-num" style="color:${p.c}">0${i+1}</div><div class="po-n kf" style="color:${p.c}">${p.ar}</div><div class="po-r" style="color:${p.c}">${p.role}</div><div class="po-desc">${p.desc}</div><div class="po-count" style="background:${p.c}0A;color:${p.c}">~${p.n} مشاركاً</div><div class="po-tags">${p.tags.map(t=>`<span class="po-tag" style="background:${p.c}0A;color:${p.c}">${t}</span>`).join('')}</div></div>`).join('')}</div>`;
+// Path visual
+h+=`<div class="pv"><div class="sec" style="margin-bottom:1rem"><div class="sec-eyebrow kf">المسار المشترك والاختلافات</div><div class="sec-title kf" style="font-size:1.4rem">أين تتشابه الشخصيات وأين تفترق؟</div></div>`;
+h+=`<div class="pv-grid">`;
+// Corner
+h+=`<div class="pv-corner"><span></span></div>`;
+// Day number headers
+D.forEach(d=>{h+=`<div class="pv-hd kf" style="color:${d.col}">${d.d}</div>`});
+// Category row
+h+=`<div class="pv-label">التصنيف</div>`;
+D.forEach(d=>{h+=`<div class="pv-cat"><div class="pv-cat-bar" style="background:${d.col}"></div><div class="pv-cat-lbl">${d.cat==='تدريب فني'?'فني':d.cat==='تطبيق عملي'?'تطبيقي':d.cat==='قيادي'?'قيادي':'CMC'}</div></div>`});
+// Shared sessions row
+h+=`<div class="pv-label">الجلسات</div>`;
+D.forEach(d=>{h+=`<div class="pv-shared"><div class="pv-shared-bar" style="background:${d.col}">${d.ss.length}</div></div>`});
+// Per-persona case study rows
+P.forEach(p=>{
+h+=`<div class="pv-label" style="color:${p.c}">${p.ar}</div>`;
+D.forEach(d=>{
+const cases=IN.filter(i=>i.days.includes(d.d)&&i.covers.includes(p.id));
+if(cases.length>0){
+h+=`<div class="pv-pcell">${cases.map(c=>`<div class="pv-dot" style="background:${p.c}" title="${c.c}: ${c.n}">${cases.length>1?'':''}</div>`).join('')}</div>`;
+}else{
+h+=`<div class="pv-pcell"><div class="pv-dot off" style="background:var(--ft)"></div></div>`;
+}
+});
+});
+h+=`</div>`;
+// Legend
+h+=`<div class="pv-legend">`;
+h+=`<div class="pv-legend-item"><div class="pv-legend-dot" style="background:var(--g)"></div>الجلسات مشتركة لجميع الشخصيات</div>`;
+h+=`<div class="pv-legend-item"><div class="pv-legend-dot" style="background:${P1}"></div>حالة تطبيقية مُكلّف بها</div>`;
+h+=`<div class="pv-legend-item"><div class="pv-legend-dot off" style="background:var(--ft);opacity:.15"></div>لا توجد حالة تطبيقية في هذا اليوم</div>`;
+h+=`</div></div>`;
+return h;
+}
+
+function rSS(di){return D[di].ss.map((s,si)=>`<div class="sr" draggable="true" data-di="${di}" data-si="${si}"><div class="s-grip">⋮⋮</div><div class="s-time">${s.t}</div><span class="s-badge ${tpM[s.tp].cls}" data-tdi="${di}" data-tsi="${si}">${tpM[s.tp].l}</span><div class="s-dur">${s.dur}</div><div class="s-name" data-edi="${di}" data-esi="${si}">${s.n}</div><div class="s-del" data-ddi="${di}" data-dsi="${si}">✕</div></div>`).join('')}
+
+function rDC(day,di,persona,all){
+const its=persona?ifdp(day.d,persona.id):ifd(day.d);
+const op=S.allOpen||S.od===day.d;
+let h=`<div class="dc ${op?'open':''}" data-d="${day.d}"><div class="dc-h"><div class="dc-cat" style="background:${day.col}12;color:${day.col}">${day.cat}</div><div class="dc-num kf" style="color:${day.col}">${day.d}<small>${day.v?'عن بُعد':'يوم'}</small></div><div class="dc-m"><div class="dc-t">${day.t}</div><div class="dc-d">${day.h} ساعة · ${day.ss.length} جلسات${its.length?' · '+its.length+' حالات تطبيقية':''}</div></div><div class="dc-tags">${its.map(i=>`<span class="pill" style="background:${G}10;color:${G};cursor:pointer" data-goto="${i.c}">${i.c}</span>`).join('')}</div><div class="dc-arr">◂</div></div>`;
+if(op){h+=`<div class="dc-body">`;
+if(its.length){
+h+=`<div class="di-section"><div class="di-section-hd"><div class="dish-title kf">حالات تطبيقية واقعية</div><div class="dish-hint">يتدرّب المشاركون على مبادرات حقيقية من قطاعات الوزارة خلال جلسات هذا اليوم</div></div>`;
+its.forEach(i=>{h+=`<div class="di"><div class="di-top"><div class="di-code kf" data-goto="${i.c}">${i.c}</div><div>${pl(i.s,GOLD)}</div></div><div class="di-name">${i.n}</div>`;
+if(persona)h+=`<div class="di-prole" style="background:${persona.c}06;border-color:${persona.c}"><strong style="color:${persona.c}">دورك كـ${persona.ar}:</strong> ${i.p[persona.id]}</div>`;
+if(all){const cp=P.filter(p=>i.covers.includes(p.id));h+=`<div class="di-p4">${cp.map(p=>`<div style="background:${p.c}05;border-color:${p.c}"><strong style="color:${p.c}">دور ${p.ar}:</strong><span style="color:var(--tx2)"> ${i.p[p.id]}</span></div>`).join('')}</div>`};
+h+=`</div>`});
+h+=`</div></div>`}
+h+=`<div class="sess-hd">⋮⋮ اسحب · اضغط النص للتعديل · اضغط الشارة لتغيير النوع · ✕ لحذف</div>`;
+h+=rSS(di)+`</div>`}h+=`</div>`;return h;
+}
+
+function rPJ(){
+const initCount=S.sp?IN.filter(i=>i.covers.includes(S.sp)).length:0;
+let h=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem"><div class="sec" style="margin-bottom:0"><div class="sec-eyebrow kf">بعيون الشخصيات</div><div class="sec-title kf">اختر شخصية واستكشف رحلتها</div></div>${svBr()}</div>`;
+h+=`<div class="psel">${P.map((p,i)=>{const a=S.sp===p.id;const cnt=IN.filter(x=>x.covers.includes(p.id)).length;return`<div class="ps ${a?'a':''} ${S.sp&&!a?'dim':''}" data-p="${p.id}"><div class="ps-color" style="background:${p.c}"></div><div class="ps-inner"><div class="ps-n kf" style="color:${p.c}">${p.ar}</div><div class="ps-r">${p.role} · ${cnt} حالات تطبيقية</div></div></div>`}).join('')}</div>`;
+if(!S.sp)return h+`<div class="pj-empty">اختر شخصية من الأعلى لتشاهد رحلتها عبر الأيام الـ١٤</div>`;
+const sp=P.find(p=>p.id===S.sp);
+h+=`<div class="pj-bar" style="border-right-color:${sp.c}"><div class="pjb-n kf" style="color:${sp.c}">${sp.ar}</div><div class="pjb-m">الدور: ${sp.role} · ~${sp.n} مشاركاً · ${initCount} حالات تطبيقية واقعية</div></div>`;
+h+=`<div style="display:flex;justify-content:flex-end;margin-bottom:8px"><div class="exp-btns"><button class="exp-btn" id="expAll">وسّع الكل</button><button class="exp-btn" id="colAll">طيّ الكل</button></div></div>`;
+D.forEach((d,i)=>{h+=rDC(d,i,sp,false)});return h;
+}
+
+function rJN(){
+let h=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem"><div class="sec" style="margin-bottom:0"><div class="sec-eyebrow kf">رحلة الـ١٤ يوماً</div><div class="sec-title kf">يوم بيوم مع الجلسات والمبادرات</div><div class="sec-lead">وسّع أي يوم لعرض الجلسات التفصيلية · اضغط رمز المبادرة للانتقال إلى تفاصيلها</div></div>${svBr()}</div>`;
+h+=`<div style="display:flex;justify-content:flex-end;margin-bottom:8px"><div class="exp-btns"><button class="exp-btn" id="expAll">وسّع الكل</button><button class="exp-btn" id="colAll">طيّ الكل</button></div></div>`;
+D.forEach((d,i)=>{h+=rDC(d,i,null,true)});return h;
+}
+
+function rEX(){
+let h=`<div class="sec"><div class="sec-eyebrow kf">الحالات التطبيقية</div><div class="sec-title kf">١٠ مبادرات واقعية كحالات دراسية</div><div class="sec-lead">كل مبادرة حقيقية من قطاعات الوزارة تُستخدم كحالة تطبيقية يتدرّب عليها المشاركون. كل شخصية تغطي ٥ حالات بدور مختلف. اضغط أي صف لعرض الأدوار</div></div>`;
+h+=`<div class="mx">`;
+h+=`<div class="mx-head"><div class="mx-corner kf">الحالة التطبيقية</div>`;
+P.forEach(p=>{const cnt=IN.filter(x=>x.covers.includes(p.id)).length;h+=`<div class="mx-ph"><div class="mph-bar" style="background:${p.c}"></div><div class="mph-n kf" style="color:${p.c}">${p.ar}</div><div class="mph-r">${cnt} حالات</div></div>`});
+h+=`</div>`;
+IN.forEach(i=>{
+const sel=S.oi===i.c;
+h+=`<div class="mx-row ${sel?'sel':''}" data-mx="${i.c}">`;
+h+=`<div class="mx-init"><div class="mi-code kf">${i.c}</div><div class="mi-name">${i.n}</div><div class="mi-days">${pl(i.s,GOLD)} ${i.days.map(d=>`<span class="mi-day" style="background:${D[d-1].col}">يوم ${d}</span>`).join('')}</div></div>`;
+P.forEach(p=>{
+h+=i.covers.includes(p.id)?`<div class="mx-cell"><span class="mc-dot" style="color:${p.c}">●</span></div>`:`<div class="mx-cell off"><span class="mc-dot" style="color:var(--ft)">—</span></div>`;
+});
+h+=`</div>`;
+if(sel){
+const cov=P.filter(p=>i.covers.includes(p.id));
+h+=`<div class="mx-det" style="animation:fi .2s"><div class="mx-det-grid">${cov.map(p=>`<div class="mx-det-card" style="background:${p.c}04;border-color:${p.c}"><div class="mdc-n kf" style="color:${p.c}">${p.ar}</div><div class="mdc-r">${p.role}</div><div class="mdc-t">${i.p[p.id]}</div></div>`).join('')}</div><div style="font-size:.6rem;font-weight:600;color:var(--mt);margin-bottom:8px">الأيام التدريبية</div><div class="mx-det-days">${i.days.map(d=>`<div class="mx-det-day" style="background:${D[d-1].col}"><strong>يوم ${d}</strong><span>${D[d-1].t}</span></div>`).join('')}</div></div>`;
+}
+});
+h+=`</div>`;return h;
+}
+
+function B(){
+document.getElementById('eB')?.addEventListener('click',()=>{S.pg='d';R()});
+document.getElementById('svB')?.addEventListener('click',sv);
+document.getElementById('rsB')?.addEventListener('click',rs);
+document.getElementById('printBtn')?.addEventListener('click',()=>{
+// Auto-expand all for print
+const wasOpen=S.allOpen;const wasOd=S.od;
+S.allOpen=true;S.od=null;R();
+setTimeout(()=>{window.print();setTimeout(()=>{S.allOpen=wasOpen;S.od=wasOd;R()},500)},200);
+});
+document.getElementById('expAll')?.addEventListener('click',()=>{S.allOpen=true;S.od=null;R()});
+document.getElementById('colAll')?.addEventListener('click',()=>{S.allOpen=false;S.od=null;R()});
+document.querySelectorAll('[data-t]').forEach(e=>e.addEventListener('click',()=>{S.vw=e.dataset.t;S.od=null;S.oi=null;S.allOpen=false;R()}));
+document.querySelectorAll('[data-p]').forEach(e=>e.addEventListener('click',()=>{S.sp=S.sp===e.dataset.p?null:e.dataset.p;S.od=null;R()}));
+document.querySelectorAll('[data-d]').forEach(e=>{e.querySelector('.dc-h')?.addEventListener('click',()=>{S.allOpen=false;S.od=S.od===+e.dataset.d?null:+e.dataset.d;R()})});
+document.querySelectorAll('[data-goto]').forEach(e=>e.addEventListener('click',ev=>{ev.stopPropagation();S.vw='ex';S.oi=e.dataset.goto;S.od=null;R();setTimeout(()=>{const t=document.querySelector('.mx-row.sel');if(t)t.scrollIntoView({behavior:'smooth',block:'center'})},50)}));
+document.querySelectorAll('.sr[draggable]').forEach(el=>{
+el.addEventListener('dragstart',e=>{dDi=+el.dataset.di;dSi=+el.dataset.si;el.classList.add('dragging');e.dataTransfer.effectAllowed='move'});
+el.addEventListener('dragend',()=>{el.classList.remove('dragging');document.querySelectorAll('.drag-over').forEach(x=>x.classList.remove('drag-over'))});
+el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drag-over')});
+el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
+el.addEventListener('drop',e=>{e.preventDefault();el.classList.remove('drag-over');const ti=+el.dataset.di,ts=+el.dataset.si;if(dDi===ti&&dSi!==ts){const[it]=D[ti].ss.splice(dSi,1);D[ti].ss.splice(ts,0,it);dirty=true;R()}})});
+document.querySelectorAll('[data-edi]').forEach(el=>{el.addEventListener('click',()=>{if(el.querySelector('input'))return;const di=+el.dataset.edi,si=+el.dataset.esi,o=D[di].ss[si].n;el.innerHTML=`<input value="${o}" style="width:100%;font-size:.76rem;font-family:inherit;border:1.5px solid ${G};border-radius:5px;padding:5px 10px;outline:none;direction:rtl;background:#fff">`;const inp=el.querySelector('input');inp.focus();inp.select();function done(){const v=inp.value.trim();if(v&&v!==o){D[di].ss[si].n=v;dirty=true}R()}inp.addEventListener('blur',done);inp.addEventListener('keydown',ev=>{if(ev.key==='Enter')inp.blur()})})});
+document.querySelectorAll('[data-tdi]').forEach(el=>{el.addEventListener('click',e=>{e.stopPropagation();const di=+el.dataset.tdi,si=+el.dataset.tsi;D[di].ss[si].tp=tpC[(tpC.indexOf(D[di].ss[si].tp)+1)%3];dirty=true;R()})});
+document.querySelectorAll('[data-ddi]').forEach(el=>{el.addEventListener('click',e=>{e.stopPropagation();const di=+el.dataset.ddi,si=+el.dataset.dsi;if(D[di].ss.length>1){D[di].ss.splice(si,1);dirty=true;R()}})});
+// Matrix row toggle
+document.querySelectorAll('[data-mx]').forEach(el=>{el.addEventListener('click',function(){S.oi=S.oi===this.dataset.mx?null:this.dataset.mx;R()})});
+}
+ld();
+</script>
